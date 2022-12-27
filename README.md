@@ -15,13 +15,19 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd node_0Y3_image_api_project folder
+```
+
+Build the server
+
+```bash
+  npm run build
 ```
 
 Start the server
 
 ```bash
-  npm run start
+  npm run start:dev
 ```
 
 
