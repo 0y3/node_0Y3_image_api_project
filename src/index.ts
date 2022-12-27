@@ -1,7 +1,7 @@
-import express, { Express,Request, Response } from 'express';
-import routes from './routes/api/index';
+import express, { Express } from 'express';
+import routes from './routes/api/indexroutes';
 
-const app: Express = express();
+const app:Express = express();
 const port =2130;
 
 app.use('/api',routes);
