@@ -12,8 +12,8 @@ const getMetadata = async (path: any) => {
 
 const imageThumbCreate = async (img:any,w:any,h:any) =>{
 
-    let ext = path.extname(img);        // Extracting file extension
-    let name = path.parse(img).name;    //Extract the name of image
+    let ext = path.extname(img);        // Extracting image extension
+    let name = path.parse(img).name;    //Extract the image name
     let filePath = process.cwd()+`/public/img/${img}`;      //get image file path
      
 
@@ -30,7 +30,7 @@ const imageThumbCreate = async (img:any,w:any,h:any) =>{
                             width: w,
                             height: h
                             })
-                        .toFile(`${thumbfolder}/${name}-${w}-${h}${ext}`)
+                        .toFile(`${thumbfolder}/${name}-${w}-${h}${ext}`) //create new thumbnai base on the extension, width and height
                         .then( (data: any) => { 
                             console.log(data);
                         })
