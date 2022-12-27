@@ -12,18 +12,19 @@ const getMetadata = async (path: any) => {
 
 const imageThumbCreate = async (img:any,w:any,h:any) =>{
 
-    // Extracting file extension
-    let ext = path.extname(img);
-    let name = path.parse(img).name;
-    let filePath = process.cwd()+`/public/img/${img}`;
+    let ext = path.extname(img);        // Extracting file extension
+    let name = path.parse(img).name;    //Extract the name of image
+    let filePath = process.cwd()+`/public/img/${img}`;      //get image file path
      
 
-    let thumbfolder = process.cwd()+`/public/img/thumbs`;
+    let thumbfolder = process.cwd()+`/public/img/thumbs`;  //get image thumbnail file path
 
+    // check if image thumbnail folder exist if not create the folder 
     if (!fs.existsSync(thumbfolder)){
         fs.mkdirSync(thumbfolder);
         console.log('Thumb Folder Created Successfully.')
     }
+    // create thumbnail using sharp js
     const data =  await sharp(filePath)
                         .resize({
                             width: w,
@@ -36,12 +37,14 @@ const imageThumbCreate = async (img:any,w:any,h:any) =>{
                         .catch( (err: any) => console.warn(err));
     return data;
 };
+
+// check image if exist 
 const checkImage = (path: any) =>{
     return fs.existsSync(path);
     
 }
 
-
+// show imgage
 export const showImage:RequestHandler = (req, res) => {
     let filePath: string;
     let imagename = req.query.filename;
@@ -51,8 +54,10 @@ export const showImage:RequestHandler = (req, res) => {
     filePath = process.cwd()+`/public/img/${imagename}`;
     getMetadata(filePath);
     
+    //check image if exist
     if(checkImage(filePath))
     {
+        //check if image width and height is define in the get request from the brower
         if( imagewidth &&  imageheight  )
         {
             // Extracting file extension
@@ -61,7 +66,7 @@ export const showImage:RequestHandler = (req, res) => {
             filePath = process.cwd()+`/public/img/thumbs/${name}-${imagewidth}-${imageheight}${ext}`;
             console.log(checkImage(filePath));
             if(!checkImage(filePath)){
-                imageThumbCreate(imagename,imagewidth,imageheight);
+                imageThumbCreate(imagename,imagewidth,imageheight);  //create thumbsnail method
             }
         }
         // Reading the file
