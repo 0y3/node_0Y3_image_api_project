@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run build && npm run jasmine",
     "build": "npx tsc",
-    "start": "npm run build && node build/index.js",
+    "start": "nodemon src/index.ts",
     "start:dev": "npx nodemon",
     "lint": "eslint \"src/**/*.{js,ts}\" --fix",
     "jasmine": "jasmine"

@@ -42,7 +42,7 @@ const checkImage = (path: any) =>{
 }
 
 
-export const showImage:RequestHandler = (req, res, next) => {
+export const showImage:RequestHandler = (req, res) => {
     let filePath: string;
     let imagename = req.query.filename;
     let imagewidth:number = Number(req.query.width);
