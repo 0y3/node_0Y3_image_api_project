@@ -18,6 +18,12 @@ Go to the project directory
   cd node_0Y3_image_api_project folder
 ```
 
+Install dependency
+
+```bash
+  npm install
+```
+
 Build the server
 
 ```bash
