@@ -1,51 +1,57 @@
 {
-  "name": "0y3_image_api_project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "npm run build && npm run jasmine",
-    "build": "npx tsc",
-    "start": "nodemon src/index.ts",
-    "start:dev": "npx nodemon",
-    "lint": "eslint \"src/**/*.{js,ts}\" --fix",
-    "jasmine": "jasmine"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/0y3/node_0Y3_image_api_project.git"
-  },
-  "author": "0y3",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/0y3/node_0Y3_image_api_project/issues"
-  },
-  "homepage": "https://github.com/0y3/node_0Y3_image_api_project#readme",
-  "dependencies": {
-    "express": "^4.18.2",
-    "jasmine": "^4.5.0",
-    "sharp": "^0.31.3",
-    "supertest": "^6.3.3"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.15",
-    "@types/jasmine": "^4.3.1",
-    "@types/node": "^18.11.17",
-    "@types/nodemon": "^1.19.2",
-    "@types/sharp": "^0.31.0",
-    "@types/supertest": "^2.0.12",
-    "@typescript-eslint/eslint-plugin": "^5.47.0",
-    "@typescript-eslint/parser": "^5.47.0",
-    "eslint": "^8.30.0",
-    "eslint-config-standard-with-typescript": "^24.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.6.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "nodemon": "^2.0.20",
-    "prettier": "^2.8.1",
-    "ts-node": "^10.9.1",
-    "tslint-plugin-prettier": "^2.3.0",
-    "typescript": "^4.9.4"
-  }
+	"name": "0y3_image_api_project",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "npm run build && npm run jasmine",
+		"build": "npx tsc",
+		"start": "nodemon src/index.ts",
+		"start:dev": "npx nodemon",
+		"check-types": "tsc --pretty --noEmit",
+		"check-format": "prettier .prettierrc . --check .",
+		"check-lint": "eslint . --ext ts --ext tsx --ext js",
+		"test-all": "npm run check-format && npm run check-lint && npm run check-types",
+		"lint": "eslint \"src/**/*.{js,ts}\" --fix",
+		"format": "prettier .prettierrc . --write .",
+		"jasmine": "jasmine"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/0y3/node_0Y3_image_api_project.git"
+	},
+	"author": "0y3",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/0y3/node_0Y3_image_api_project/issues"
+	},
+	"homepage": "https://github.com/0y3/node_0Y3_image_api_project#readme",
+	"dependencies": {
+		"express": "^4.18.2",
+		"jasmine": "^4.5.0",
+		"sharp": "^0.31.3",
+		"supertest": "^6.3.3"
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.15",
+		"@types/jasmine": "^4.3.1",
+		"@types/node": "^18.11.17",
+		"@types/nodemon": "^1.19.2",
+		"@types/sharp": "^0.31.0",
+		"@types/supertest": "^2.0.12",
+		"@typescript-eslint/eslint-plugin": "^5.48.0",
+		"@typescript-eslint/parser": "^5.48.0",
+		"eslint": "^8.31.0",
+		"eslint-config-prettier": "^8.6.0",
+		"eslint-config-standard-with-typescript": "^25.0.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-n": "^15.6.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-promise": "^6.1.1",
+		"nodemon": "^2.0.20",
+		"prettier": "^2.8.1",
+		"ts-node": "^10.9.1",
+		"tslint-plugin-prettier": "^2.3.0",
+		"typescript": "^4.9.4"
+	}
 }

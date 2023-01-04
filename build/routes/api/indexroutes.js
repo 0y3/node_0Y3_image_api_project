@@ -22,14 +22,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
+const express = __importStar(require("express"));
 const imagecontroller = __importStar(require("../../controller/imagecontroller"));
-const routes = express_1.default.Router();
-routes.get('/image', imagecontroller.showImage);
+const routes = express.Router();
+routes.get("/image", imagecontroller.showImage);
 // routes.get('/',(req:Request, res:Response) =>{
 //     res.send('Main Routes');
 // });

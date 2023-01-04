@@ -1,82 +1,72 @@
 // import { Request, Response, NextFunction } from 'express';
-import { RequestHandler } from 'express';
-import { ParsedQs } from 'qs';
-const fs = require('fs');
-const path = require("path");
-const sharp = require('sharp');
-
-const getMetadata = async (path: any) => {
-    const metadata =  await sharp(path).metadata();
-    console.log(metadata);
-};
-
-const imageThumbCreate = async (img:any,w:any,h:any) =>{
-
-    let ext = path.extname(img);        // Extracting image extension
-    let name = path.parse(img).name;    //Extract the image name
-    let filePath = process.cwd()+`/public/img/${img}`;      //get image file path
-     
-
-    let thumbfolder = process.cwd()+`/public/img/thumbs`;  //get image thumbnail file path
-
-    // check if image thumbnail folder exist if not create the folder 
-    if (!fs.existsSync(thumbfolder)){
-        fs.mkdirSync(thumbfolder);
-        console.log('Thumb Folder Created Successfully.')
-    }
-    // create thumbnail using sharp js
-    const data =  await sharp(filePath)
-                        .resize({
-                            width: w,
-                            height: h
-                            })
-                        .toFile(`${thumbfolder}/${name}-${w}-${h}${ext}`) //create new thumbnai base on the extension, width and height
-                        .then( (data: any) => { 
-                            console.log(data);
-                        })
-                        .catch( (err: any) => console.warn(err));
-    return data;
-};
-
-// check image if exist 
-const checkImage = (path: any) =>{
-    return fs.existsSync(path);
-    
-}
+import { RequestHandler } from "express";
+import * as helper from "../util/helper";
+import * as fs from "fs";
+import path from "path";
 
 // show imgage
-export const showImage:RequestHandler = (req, res) => {
-    let filePath: string;
-    let imagename = req.query.filename;
-    let imagewidth:number = Number(req.query.width);
-    let imageheight:number = Number(req.query.height);
-   
-    filePath = process.cwd()+`/public/img/${imagename}`;
-    getMetadata(filePath);
-    
-    //check image if exist
-    if(checkImage(filePath))
-    {
-        //check if image width and height is define in the get request from the brower
-        if( imagewidth &&  imageheight  )
-        {
-            // Extracting file extension
-            let ext = path.extname(imagename);
-            let name = path.parse(imagename).name;
-            filePath = process.cwd()+`/public/img/thumbs/${name}-${imagewidth}-${imageheight}${ext}`;
-            console.log(checkImage(filePath));
-            if(!checkImage(filePath)){
-                imageThumbCreate(imagename,imagewidth,imageheight);  //create thumbsnail method
-            }
-        }
-        // Reading the file
-        fs.readFile(filePath,function (err: any, content: any) {
-            res.end(content);
-        });
-    }
-    else{
-        res.writeHead(404, { "Content-Type": "text/plain" });
-        res.end("404 Not Found");
-    }
-    
+export const showImage: RequestHandler = (req, res) => {
+	let filePath: string;
+	const imagename = String(req.query.filename);
+	const imagewidth = Number(req.query.width);
+	const imageheight = Number(req.query.height);
+
+	filePath = process.cwd() + `/public/img/${imagename}`;
+
+	// check image if exist
+	if (helper.checkImage(filePath)) {
+		if (
+			typeof req.query.width === "undefined" ||
+			typeof req.query.height === "undefined"
+		) {
+			// Reading the Image file without width nor height
+			fs.readFile(filePath, function (_err: unknown, content: unknown) {
+				res.end(content);
+			});
+		}
+		// check if image width and height is define in the get request from the brower
+		else if (Boolean(imagewidth) && Boolean(imageheight)) {
+			// Extracting file extension
+			if (!helper.isPositive(imagewidth) || !helper.isPositive(imageheight)) {
+				// check if it's a nagative number
+				res.end("Image Width nor Height must be greater than 0");
+			} else {
+				const ext = path.extname(imagename);
+				const name = path.parse(imagename).name;
+				// eslint-disable-next-line prettier/prettier
+				filePath =
+					process.cwd() +
+					`/public/img/thumbs/${name}-${imagewidth}-${imageheight}${ext}`;
+
+				// Create ThumbNail Image
+				if (!helper.checkImage(filePath)) {
+					console.log`create image`;
+					// eslint-disable-next-line prettier/prettier
+					const data = helper.imageThumbCreate(
+						imagename,
+						imagewidth,
+						imageheight,
+					); // create thumbsnail method
+					void data.then(() => {
+						fs.readFile(filePath, function (_err: unknown, content: unknown) {
+							res.end(content);
+						});
+					});
+				} else {
+					// Reading the Exitsting Image File
+					console.log`get exitsting image`;
+					fs.readFile(filePath, function (_err: unknown, content: unknown) {
+						res.end(content);
+					});
+				}
+			}
+		} else {
+			!helper.isNumeric(imagewidth) || !helper.isNumeric(imageheight)
+				? res.end("Image Width nor Height is not numeric")
+				: res.end("Image Width nor Height can not be empty");
+		}
+	} else {
+		res.writeHead(404, { "Content-Type": "text/plan" });
+		res.end("Image does no exist");
+	}
 };
