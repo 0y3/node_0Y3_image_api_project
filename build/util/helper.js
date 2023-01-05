@@ -39,7 +39,7 @@ exports.isPositive = exports.isNumeric = exports.getMetadata = exports.checkImag
 const fs = __importStar(require("fs"));
 const path_1 = __importDefault(require("path"));
 const sharp_1 = __importDefault(require("sharp"));
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type, prettier/prettier
 const imageThumbCreate = (img, w, h) => __awaiter(void 0, void 0, void 0, function* () {
     const ext = path_1.default.extname(img); // Extracting image extension
     const name = path_1.default.parse(img).name; // Extract the image name

@@ -2,8 +2,8 @@ import * as fs from "fs";
 import path from "path";
 import sharp from "sharp";
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const imageThumbCreate = async (img: string, w: number, h: number) => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type, prettier/prettier
+export const imageThumbCreate = async (img: string, w: number, h: number): Promise<void> => {
 	const ext = path.extname(img); // Extracting image extension
 	const name = path.parse(img).name; // Extract the image name
 	const filePath = process.cwd() + `/public/img/${img}`; // get image file path
@@ -31,23 +31,23 @@ export const imageThumbCreate = async (img: string, w: number, h: number) => {
 
 // check image if exist
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const checkImage = (paths: string) => {
+export const checkImage = (paths: string): boolean => {
 	return fs.existsSync(paths);
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const getMetadata = async (paths: string) => {
+export const getMetadata = async (paths: string): Promise<void> => {
 	const metadata = await sharp(paths).metadata();
 	console.log(metadata);
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const isNumeric = (num: unknown) =>
+export const isNumeric = (num: unknown): boolean =>
 	(typeof num === "number" || (typeof num === "string" && num.trim() !== "")) &&
 	!isNaN(num as number);
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const isPositive = (num: unknown) =>
+export const isPositive = (num: unknown): boolean =>
 	(typeof num === "number" || (typeof num === "string" && num.trim() !== "")) &&
 	!isNaN(num as number) &&
 	num > 0;
