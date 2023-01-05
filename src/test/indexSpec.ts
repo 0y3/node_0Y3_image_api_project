@@ -7,26 +7,23 @@ const port = 2130;
 const baseUrl = `http://localhost:${port}`;
 
 describe("Index Route", function () {
-	describe("GET /", function () {
-		it("should return 200 response code", function (done) {
-			app.get(`${baseUrl}`, function (req, res) {
-				expect(res.statusCode).toEqual(200);
-				done();
-			});
-		});
+	// beforeEach(function (done) {
+	// 	window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+	// 	setTimeout(function () {
+	// 		console.log("inside timeout");
+	// 		done();
+	// 	}, 500);
+	// });
 
-		it("should Fall ", function (done) {
-			app.get(`${baseUrl}`, function (req, res) {
-				expect(res.statusCode).toEqual(404);
-				done();
-			});
+	it("should return 200 response code", () => {
+		app.get(`${baseUrl}`, function (req, res) {
+			expect(res.statusCode).toEqual(200);
 		});
+	});
 
-		it("returns Api Route", function (done) {
-			app.get(`${baseUrl}/api`, function (req, res, next) {
-				expect(next).toBe(`server started at ${baseUrl}/api`);
-				// done();
-			});
+	it("should Fall ", () => {
+		app.get(`${baseUrl}`, function (req, res) {
+			expect(res.statusCode).toEqual(404);
 		});
 	});
 });

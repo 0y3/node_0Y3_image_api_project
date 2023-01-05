@@ -1,13 +1,15 @@
-// import * as indexroutes from "../routes/api/indexroutes";
-// import * as express from "express";
+import * as indexroutes from "../routes/api/indexroutes";
+import express, { Express, Response, Request } from "express";
 
-// const request = express.request();
+const app: Express = express();
+const port = 2130;
+const baseUrl = `http://localhost:${port}`;
 
-// describe("GET /", function () {
-// 	it("returns status code 200", function (done) {
-// 		request.get("http://localhost:3000", function (error, response, body) {
-// 			expect(response.statusCode).toBe(200);
-// 			done();
-// 		});
-// 	});
-// });
+describe("Api Index Route", function () {
+	it("Should returns status code 200", function () {
+		app.get(`${baseUrl}/api`, function (req, res, next) {
+			expect(req.statusCode).toBe(200);
+			expect(next).toBe(`server started at ${baseUrl}/api`);
+		});
+	});
+});
