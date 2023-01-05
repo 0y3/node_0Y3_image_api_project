@@ -1,9 +1,6 @@
-import * as fs from "fs";
-import path from "path";
-import sharp from "sharp";
 import * as helper from "../util/helper";
 
-describe("Helper ", function () {
+describe("Helper Utility", function () {
 	const filePath = process.cwd() + `/public/img/demo.jpg`;
 	const width = 200;
 	const height = 200;

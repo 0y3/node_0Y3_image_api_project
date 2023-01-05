@@ -24,7 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const helper = __importStar(require("../util/helper"));
-describe("Helper ", function () {
+describe("Helper Utility", function () {
     const filePath = process.cwd() + `/public/img/demo.jpg`;
     const width = 200;
     const height = 200;
