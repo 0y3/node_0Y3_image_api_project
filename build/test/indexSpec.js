@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const port = 2130;
 const baseUrl = `http://localhost:${port}`;
-describe("Index Route", function () {
+describe("Api Index Route", function () {
     // beforeEach(function (done) {
     // 	window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     // 	setTimeout(function () {
@@ -15,13 +15,13 @@ describe("Index Route", function () {
     // 		done();
     // 	}, 500);
     // });
-    it("should return 200 response code", () => {
-        app.get(`${baseUrl}`, function (req, res) {
+    it(`Should returns status code 200 & Start Server at ${baseUrl}/api`, () => {
+        app.get(`${baseUrl}/api`, function (req, res) {
             expect(res.statusCode).toEqual(200);
         });
     });
-    it("should Fall ", () => {
-        app.get(`${baseUrl}`, function (req, res) {
+    it("Should Fall ", () => {
+        app.get(`${baseUrl}/api`, function (req, res) {
             expect(res.statusCode).toEqual(404);
         });
     });
